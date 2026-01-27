@@ -10,32 +10,20 @@ namespace naptar
     {
         static void Main(string[] args)
         {
-            Felhasznalo();
+           string[,] naptar = Naptar_generalas();
+            Menu(naptar);
         }
 
-        static string Felhasznalo()
+        public struct Esemeny
         {
-            while (true)
-            {
-                Console.Write("Adja meg a felhasználot: ");
-                string input = Console.ReadLine();
+            public string Nev;
+            public Datetime Datum;
+            public string Leiras;
+            public string Felhasznalo;
 
-                switch (input)
-                {
-                    case "Apa":
-                        return "Apa";
-                    case "Anya":
-                        return "Anya";
-                    default:
-                        Console.WriteLine("Hibás felhasználó, próbálja újra.");
-                        Console.ReadKey();
-                        Console.Clear();
-                        break;
-                }
-            }
         }
 
-        static void Menu()
+        static void Menu(string[,] naptar)
         {
             Console.WriteLine("1. Naptár megjelenítése");
             Console.WriteLine("2. Esemény hozzáadása");
@@ -48,7 +36,7 @@ namespace naptar
             switch (input)
             {
                 case 1:
-                    Naptar_megjelenites();
+                    Naptar_megjelenites(naptar);
                     break;
                 case 2:
                     Esemeny_hozzaadas();
@@ -63,13 +51,43 @@ namespace naptar
                     Console.WriteLine("Hibás opció, próbálja újra.");
                     Console.ReadKey();
                     Console.Clear();
-                    Menu();
+                    Menu(naptar);
                     break;
             }
         }
-        static void Naptar_megjelenites()
+
+        static string[,] Naptar_generalas()
+        {
+            string[,] naptar = new string[6, 7];
+            naptar[0, 0] = "Hétfő";
+            naptar[0, 1] = "Kedd";
+            naptar[0, 2] = "Szerda";
+            naptar[0, 3] = "Csütörtök";
+            naptar[0, 4] = "Péntek";
+            naptar[0, 5] = "Szombat";
+            naptar[0, 6] = "Vasárnap";
+            int day = 0;
+            for (int i = 0; i < naptar.GetLength(0); i++)
+            {
+                for (int j = 0; j < naptar.GetLength(1); j++)
+                {
+                    if (day > 29)
+                    {
+                        break;
+                    }
+                    if (day != 0)
+                    {
+                        naptar[i, j] = day.ToString();
+                        day++;
+                    }
+                }
+            }
+            return naptar;
+        }
+        static void Naptar_megjelenites(string[,] naptar)
         {
             Console.WriteLine("Naptár megjelenítése");
+            
         }
 
         static void Esemeny_hozzaadas()
