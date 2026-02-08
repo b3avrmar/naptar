@@ -118,6 +118,7 @@ namespace naptar
             };
 
             esemenyek.Add(ujEsemeny);
+            Mentes(esemenyek);
             return esemenyek;
         }
 
@@ -128,13 +129,18 @@ namespace naptar
 
         static void Kilepes()
         {
-            Mentes();
             Console.WriteLine("Kilépés");
         }
 
-        static void Mentes()
+        static void Mentes(List<Esemeny> esemenyek)
         {
-            Console.WriteLine("Adatok mentése");
+            StreamWriter sw = new StreamWriter("esemenyek.csv");
+            foreach (var item in esemenyek)
+            {
+                sw.WriteLine($"{item.Nev};{item.Datum};{item.Idotartam};{item.Leiras};{item.Felhasznalo}");
+            }
+            sw.Flush();
+            sw.Close();
         }
     }
 }
