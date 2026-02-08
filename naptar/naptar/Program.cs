@@ -133,11 +133,26 @@ namespace naptar
             Console.Write("Add meg space-el elválasztva az esemény nevét, dátumát, időtartamát, leírását és a felhasználó nevét: ");
             string[] input = Console.ReadLine().Split(' ');
 
+            DateTime datum = DateTime.Parse(input[1]);
+            TimeSpan idotartam = TimeSpan.Parse(input[2]);
+
+            if (datum.Hour < 8 || datum.Hour >= 20)
+            {
+                Console.WriteLine("Hiba: Az esemény csak reggel 8 és este 20 óra között vehető fel!");
+                return esemenyek;
+            }
+
+            if (idotartam < TimeSpan.FromMinutes(30) || idotartam > TimeSpan.FromHours(2))
+            {
+                Console.WriteLine("Hiba: Az esemény időtartama csak 30 perc és 2 óra között lehet!");
+                return esemenyek;
+            }
+
             Esemeny ujEsemeny = new Esemeny
             {
                 Nev = input[0],
-                Datum = DateTime.Parse(input[1]),
-                Idotartam = TimeSpan.Parse(input[2]),
+                Datum = datum,
+                Idotartam = idotartam,
                 Leiras = input[3],
                 Felhasznalo = input[4]
             };
