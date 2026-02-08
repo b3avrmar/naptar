@@ -31,10 +31,9 @@ namespace naptar
         static List<Esemeny> Esemenyek_betoltese()
         {
             List<Esemeny> esemenyek = new List<Esemeny>();
-            if (File.Exists("esemenyek.csv"))
+            if (File.Exists("data.csv"))
             {
-                StreamReader sr = new StreamReader("esemenyek.csv");
-                foreach (string line in File.ReadAllLines("esemenyek.csv").Skip(1))
+                foreach (string line in File.ReadAllLines("data.csv").Skip(1))
                 {
                     string[] parts = line.Split(';');
                     if (parts.Length == 5)
@@ -194,7 +193,9 @@ namespace naptar
             Console.WriteLine($"\nLegközelebbi esemény:");
             Console.WriteLine($"Név: {legkozelebbi.Nev}");
             Console.WriteLine($"Dátum: {legkozelebbi.Datum.ToShortDateString()}");
-            Console.WriteLine($"Különbség: {legkisebbKulonbseg.Days} nap");
+            Console.WriteLine($"Időtartam: {legkozelebbi.Idotartam}");
+            Console.WriteLine($"Leírás: {legkozelebbi.Leiras}");
+            Console.WriteLine($"Felhasználó: {legkozelebbi.Felhasznalo}");
         }
 
         static void Mentes(List<Esemeny> esemenyek)
